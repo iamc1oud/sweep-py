@@ -1,0 +1,19 @@
+[project]
+name = "sweep"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "typesafe-sdk>=0.7.2",
+]
+
+[project.scripts]
+sweep = "main:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = ["main"]
