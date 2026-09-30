@@ -6,11 +6,19 @@ A folder is only flagged if its marker file sits in the same directory. A `targe
 
 ## Install
 
-Requires Python 3.13+ and [uv](https://docs.astral.sh/uv/).
+One line (installs [uv](https://docs.astral.sh/uv/) if missing; temp download/build cache is deleted afterwards, only `sweep` stays):
+
+```
+curl -LsSf https://raw.githubusercontent.com/iamc1oud/sweep-py/main/install.sh | sh
+```
+
+Or from a clone (Python 3.13+ and uv required):
 
 ```
 uv tool install --editable .
 ```
+
+Uninstall: `uv tool uninstall sweep`
 
 ## Usage
 
