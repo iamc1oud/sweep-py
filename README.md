@@ -49,3 +49,8 @@ Nothing is deleted without `--delete`, and there is no confirmation prompt when 
 Skipped: `.git`, symlinked folders, and anything inside an already-flagged folder. Go `vendor` is not touched because it is often committed.
 
 To add a language, add an entry to `RULES` in `main.py`.
+
+## TODO
+
+- [ ] Support user-defined targets for automatic deletion (custom config file / CLI flag)
+- [ ] TUI for interactive folder selection and deletion
