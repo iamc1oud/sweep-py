@@ -44,20 +44,38 @@ def size(path):
 
 
 def main():
-    ap =    argparsese.ArgumentParser()
-    ac
+    ap = argparse.ArgumentParser()
     ap.add_argument("root", nargs="?", default=".")
+    ap.add_argument("index", nargs="?", default=None, type=int)
     ap.add_argument("--delete", action="store_true")
     args = ap.parse_args()
 
-    total = 0
-    for path in find_junk(args.root):
-        s = size(path)
-        total += s
-        print(f"{s / 1e6:10.1f} MB  {path}")
-        if args.delete:
-            shutil.rmtree(path)
-    print(f"{'deleted' if args.delete else 'would free'} {total / 1e6:.1f} MB")
+    # If root is a digit string, treat it as index in current dir
+    if args.root.isdigit():
+        args.index = int(args.root)
+        args.root = "."
+
+    junk = [(path, size(path)) for path in find_junk(args.root)]
+    total = sum(s for _, s in junk)
+
+    # Delete specific index or all
+    if args.index is not None:
+        if 0 <= args.index < len(junk):
+            path, s = junk[args.index]
+            if args.delete:
+                shutil.rmtree(path)
+                print(f"deleted {s / 1e6:.1f} MB  {path}")
+            else:
+                print(f"would free {s / 1e6:.1f} MB  {path}")
+        else:
+            print(f"Index {args.index} out of range (0-{len(junk)-1})" if junk else "No junk folders found")
+    else:
+        # List all with indices
+        for idx, (path, s) in enumerate(junk):
+            print(f"[{idx}]  {s / 1e6:10.1f} MB  {path}")
+            if args.delete:
+                shutil.rmtree(path)
+        print(f"{'deleted' if args.delete else 'would free'} {total / 1e6:.1f} MB")
 
 
 if __name__ == "__main__":
