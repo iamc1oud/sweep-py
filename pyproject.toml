@@ -14,4 +14,5 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
+package-dir = {"" = "python"}
 py-modules = ["main"]
